@@ -60,6 +60,7 @@ const App = () => {
               <p className="tour-price">Price: ${tour.price}</p>
               <button
                 className="delete-btn"
+                id={`delete-btn-${tour.id}`}
                 onClick={() => handleDeleteTour(tour.id)}
               >
                 Delete Tour
