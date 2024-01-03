@@ -69,7 +69,7 @@ const App = () => {
                 {showMore[tour.id] ? "See Less" : "Show More"}
               </button> */}
               <button
-                id={`tour-item-para-${tour.id}`}  
+                id={`see-more-${tour.id}`}  
                 onClick={() => handleToggleShowMore(tour.id)}
               >
                 {showMore[tour.id] ? "See Less" : "Show More"}
