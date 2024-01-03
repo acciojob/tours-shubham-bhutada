@@ -4,7 +4,7 @@ import tourData from "../data/tourData";
 const App = () => {
   const [tours, setTours] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [showMore, setShowMore] = useState({});
+  const [showMore, setShowMore] = useState(false);
 
   useEffect(() => {
     setTimeout(() => {
@@ -18,27 +18,24 @@ const App = () => {
     setTours(updatedTours);
   };
 
-  const handleShowMore = (id) => {
-    setShowMore((prevShowMore) => ({
-      ...prevShowMore,
-      [id]: !prevShowMore[id],
-    }));
+  const handleToggleShowMore = () => {
+    setShowMore((prevShowMore) => !prevShowMore);
   };
 
   const handleRefresh = () => {
-    // Simulate fetching data from an API
     setLoading(true);
     setTimeout(() => {
-      setTours([
-        // Your tour data goes here
-      ]);
+      setTours(tourData);
       setLoading(false);
-    }, 1000); // Simulating a 1-second delay for loading
+    }, 1000); 
   };
 
   return (
     <main id="main">
       <h1 className="title">Tour List</h1>
+      <button onClick={handleToggleShowMore}>
+        {showMore ? "See Less" : "Show More"}
+      </button>
       {loading ? (
         <p className="loading">Loading...</p>
       ) : tours.length === 0 ? (
@@ -54,7 +51,7 @@ const App = () => {
             <div key={tour.id} className="single-tour">
               <h2>{tour.name}</h2>
               <p className="tour-info">
-                {showMore[tour.id]
+                {showMore
                   ? tour.info
                   : tour.info.length > 200
                   ? tour.info.slice(0, 200) + "..."
@@ -66,9 +63,6 @@ const App = () => {
                 onClick={() => handleDeleteTour(tour.id)}
               >
                 Delete Tour
-              </button>
-              <button onClick={() => handleShowMore(tour.id)}>
-                {showMore[tour.id] ? "See Less" : "Show More"}
               </button>
             </div>
           ))}
